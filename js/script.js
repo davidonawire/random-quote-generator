@@ -1,11 +1,8 @@
 /******************************************
-Treehouse FSJS Techdegree:
-project 1 - A Random Quote Generator
+- A Random Quote Generator -
+Selects a quote randomly when the user clicks the Show Another Quote button.
+Quotes can optionally include a citation source and year.
 ******************************************/
-
-// For assistance:
-  // Check the "Project Resources" section of the project instructions
-  // Reach out in your Slack community - https://treehouse-fsjs-102.slack.com/app_redirect?channel=chit-chat
 
 // A collection of quotes with optional Citation and Year values
 const quotes = [
@@ -18,15 +15,18 @@ const quotes = [
   {
     quote: 'To leave the reader free to decide what your work means, that’s the real art; it makes the work inexhaustible.',
     source: 'Ursula K. Le Guin',
+    occupation: 'author',
     year: '2005'
   },
   {
     quote: 'The world about us would be desolate except for the world within us.',
     source: 'Wallace Stevens',
+    occupation: 'poet',
   },
   {
-    quote: 'You can only know where you\'re going if you know where you\'ve been.',
+    quote: 'You can only know where you’re going if you know where you’ve been.',
     source: 'James Burke',
+    occupation: 'television host',
     citation: 'Connections',
     year: '1979'
   },
@@ -34,12 +34,39 @@ const quotes = [
     quote: 'Art would not be important if life were not important, and life is important.',
     source: 'James Baldwin',
   },
+  {
+    quote: 'I’ll play it and tell you what it is later.',
+    source: 'Miles Davis',
+    year: '1956'
+  },
+  {
+    quote: 'There is no feeling, except the extremes of fear and grief, that does not find relief in music.',
+    source: 'George Eliot',
+    citation: 'The Mill on the Floss',
+    year: '1860'
+  }
 ];
 
-// Accept an array of quote objects and returns one at random
+// Array of background colors to be chosen at random with each quote
+const bgColors = [
+  'purple',
+  'maroon',
+  'pink',
+  'green',
+  'orange',
+  'brown'
+]
+
+// Accept an array of quote objects and return one at random
 function getRandomQuote( arr ) {
   let rand = Math.floor(Math.random() * arr.length);
   return quotes[rand];
+}
+
+// Accept an array of colors and return one at random
+function getRandomColor( arr ) {
+  let rand = Math.floor(Math.random() * arr.length);
+  return bgColors[rand];
 }
 
 // Select a random quote and build and display the quote in HTML
@@ -49,6 +76,9 @@ function printQuote() {
               <p class="source">${selectedQuote.source}`;
 
   // Check to see if chosen quote has citation or year, and add them
+  if (selectedQuote.occupation) {
+    html += ` (${selectedQuote.occupation})`;
+  }
   if (selectedQuote.citation) {
     html += `<span class="citation">${selectedQuote.citation}</span>`;
   }
@@ -57,12 +87,13 @@ function printQuote() {
   }
 
   html += '</p>';
+  
+  // Randomize the page background color
+  document.body.style.backgroundColor = getRandomColor(bgColors);
+
+  // Update page with new quote
   document.getElementById('quote-box').innerHTML = html;
 }
 
-/***
- * click event listener for the print quote button
- * DO NOT CHANGE THE CODE BELOW!!
-***/
-
+// Add a listener to Show Another Quote button to display a new quote on click
 document.getElementById('load-quote').addEventListener("click", printQuote, false);
