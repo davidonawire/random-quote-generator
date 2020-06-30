@@ -3,7 +3,7 @@
 Selects a quote randomly when the user clicks the Show Another Quote button,
 and automatically at an interval. The page background color
 changes with each new quote.
-Quotes can optionally include a citation source and year.
+Quotes can optionally include a citation source, year, and occupation.
 ******************************************/
 
 // A collection of quotes with optional Citation and Year values
