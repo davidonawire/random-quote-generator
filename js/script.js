@@ -69,18 +69,18 @@ const bgColors = [
   'green',
   'orange',
   'brown'
-]
+];
 
 // Accept an array of quote objects and return one at random
 function getRandomQuote( arr ) {
   let rand = Math.floor(Math.random() * arr.length);
-  return quotes[rand];
+  return arr[rand];
 }
 
 // Accept an array of colors and return one at random
 function getRandomColor( arr ) {
   let rand = Math.floor(Math.random() * arr.length);
-  return bgColors[rand];
+  return arr[rand];
 }
 
 // Select a random quote and build and display the quote in HTML
