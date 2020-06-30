@@ -1,6 +1,8 @@
 /******************************************
 - A Random Quote Generator -
-Selects a quote randomly when the user clicks the Show Another Quote button.
+Selects a quote randomly when the user clicks the Show Another Quote button,
+and automatically at an interval. The page background color
+changes with each new quote.
 Quotes can optionally include a citation source and year.
 ******************************************/
 
@@ -21,7 +23,7 @@ const quotes = [
   {
     quote: 'The world about us would be desolate except for the world within us.',
     source: 'Wallace Stevens',
-    occupation: 'poet',
+    occupation: 'poet'
   },
   {
     quote: 'You can only know where you’re going if you know where you’ve been.',
@@ -44,8 +46,20 @@ const quotes = [
     source: 'George Eliot',
     citation: 'The Mill on the Floss',
     year: '1860'
+  },
+  {
+    quote: 'Blues are easy to play, but hard to feel.',
+    source: 'Jimi Hendrix'
+  },
+  {
+    quote: 'Beauty is meaningless until it is shared.',
+    source: 'George Orwell',
+    year: '1934'
   }
 ];
+
+let currentQuoteIndex; // Track the current quote to avoid duplicates
+let timerInterval = 10000; // Interval, in milliseconds, to automatically show a new quote
 
 // Array of background colors to be chosen at random with each quote
 const bgColors = [
@@ -71,7 +85,12 @@ function getRandomColor( arr ) {
 
 // Select a random quote and build and display the quote in HTML
 function printQuote() {
-  let selectedQuote = getRandomQuote(quotes);
+  let selectedQuote;
+  do {
+    selectedQuote = getRandomQuote(quotes);
+  } while (quotes.indexOf(selectedQuote) === currentQuoteIndex); // Choose again if we're otherwise repeating
+  currentQuoteIndex = quotes.indexOf(selectedQuote);
+
   let html = `<p class="quote">${selectedQuote.quote}</p>
               <p class="source">${selectedQuote.source}`;
 
@@ -92,7 +111,7 @@ function printQuote() {
 }
 
 // Automatically display a new quote every 10 seconds
-setInterval(printQuote, 10000);
+setInterval(printQuote, timerInterval);
 
 // Add a listener to Show Another Quote button to display a new quote on click
 document.getElementById('load-quote').addEventListener("click", printQuote, false);
