@@ -85,15 +85,14 @@ function printQuote() {
   if (selectedQuote.year) {
     html += `<span class="year">${selectedQuote.year}</span>`;
   }
-
   html += '</p>';
-  
-  // Randomize the page background color
-  document.body.style.backgroundColor = getRandomColor(bgColors);
 
-  // Update page with new quote
-  document.getElementById('quote-box').innerHTML = html;
+  document.body.style.backgroundColor = getRandomColor(bgColors); // Randomize the page background color
+  document.getElementById('quote-box').innerHTML = html; // Update page with new quote
 }
+
+// Automatically display a new quote every 10 seconds
+setInterval(printQuote, 10000);
 
 // Add a listener to Show Another Quote button to display a new quote on click
 document.getElementById('load-quote').addEventListener("click", printQuote, false);
