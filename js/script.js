@@ -94,7 +94,7 @@ function printQuote() {
   let html = `<p class="quote">${selectedQuote.quote}</p>
               <p class="source">${selectedQuote.source}`;
 
-  // Check to see if chosen quote has citation or year, and add them
+  // Check to see if chosen quote has optional values, and add them
   if (selectedQuote.occupation) {
     html += ` (${selectedQuote.occupation})`;
   }
@@ -110,7 +110,7 @@ function printQuote() {
   document.getElementById('quote-box').innerHTML = html; // Update page with new quote
 }
 
-// Automatically display a new quote every 10 seconds
+// Automatically display a new quote at an interval
 setInterval(printQuote, timerInterval);
 
 // Add a listener to Show Another Quote button to display a new quote on click
