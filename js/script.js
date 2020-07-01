@@ -74,8 +74,12 @@ const bgColors = [
 
 // Accept an array of quote objects and return one at random
 function getRandomQuote( arr ) {
-  let rand = Math.floor(Math.random() * arr.length);
-  return arr[rand];
+  let rand;
+  do {
+    rand = Math.floor(Math.random() * arr.length);
+  } while (rand === currentQuoteIndex); // Choose again if we're otherwise repeating
+  currentQuoteIndex = rand;
+  return arr[currentQuoteIndex];
 }
 
 // Accept an array of colors and return one at random
@@ -92,12 +96,8 @@ function startTimer() {
 // Select a random quote and build and display the quote in HTML
 function printQuote() {
   clearInterval(displayTimer); // Prevent displaying a new quote too soon if display was user-prompted
-  let selectedQuote;
-  do {
-    selectedQuote = getRandomQuote(quotes);
-  } while (quotes.indexOf(selectedQuote) === currentQuoteIndex); // Choose again if we're otherwise repeating
-  currentQuoteIndex = quotes.indexOf(selectedQuote);
 
+  let selectedQuote = getRandomQuote(quotes);
   let html = `<p class="quote">${selectedQuote.quote}</p>
               <p class="source">${selectedQuote.source}`;
 
