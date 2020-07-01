@@ -59,6 +59,7 @@ const quotes = [
 ];
 
 let currentQuoteIndex; // Track the current quote to avoid duplicates
+let displayTimer;
 let timerInterval = 10000; // Interval, in milliseconds, to automatically show a new quote
 
 // Array of background colors to be chosen at random with each quote
@@ -83,8 +84,14 @@ function getRandomColor( arr ) {
   return arr[rand];
 }
 
+// Automatically display a new quote at an interval
+function startTimer() {
+    displayTimer = setInterval(printQuote, timerInterval);
+}
+
 // Select a random quote and build and display the quote in HTML
 function printQuote() {
+  clearInterval(displayTimer); // Prevent displaying a new quote too soon if display was user-prompted
   let selectedQuote;
   do {
     selectedQuote = getRandomQuote(quotes);
@@ -108,10 +115,11 @@ function printQuote() {
 
   document.body.style.backgroundColor = getRandomColor(bgColors); // Randomize the page background color
   document.getElementById('quote-box').innerHTML = html; // Update page with new quote
-}
 
-// Automatically display a new quote at an interval
-setInterval(printQuote, timerInterval);
+  startTimer(); // Get the timer going again
+}
 
 // Add a listener to Show Another Quote button to display a new quote on click
 document.getElementById('load-quote').addEventListener("click", printQuote, false);
+
+window.addEventListener('load', startTimer);
